@@ -36,6 +36,7 @@ namespace OnlineExample
             {
                 using (var sr = new StreamReader(s))
                 {
+                    //test
                     var contributorsAsJson = sr.ReadToEnd();
                     var contributors = JsonConvert.DeserializeObject<List<Contributor>>(contributorsAsJson);
                     contributors.ForEach(Console.WriteLine);
