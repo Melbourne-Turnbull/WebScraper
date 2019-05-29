@@ -4,6 +4,9 @@ using System.Net;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Web.UI.WebControls;
+using System.Linq;
+using System.Collections;
 
 namespace OnlineExample
 {
@@ -11,7 +14,7 @@ namespace OnlineExample
     internal class Contributor
 {
     public string Login { get; set; }
-    public short Contributions { get; set; }
+    public int Contributions { get; set; }
 
     public override string ToString()
     {
@@ -36,14 +39,31 @@ namespace OnlineExample
             {
                 using (var sr = new StreamReader(s))
                 {
-                    //test
                     var contributorsAsJson = sr.ReadToEnd();
                     var contributors = JsonConvert.DeserializeObject<List<Contributor>>(contributorsAsJson);
                     contributors.ForEach(Console.WriteLine);
-                    //IEnumerable<JToken> pricyProducts = contributors.SelectTokens("$..Login[?(@.Contributions >= 50)].Login");
+                    Console.WriteLine();
+
+                    Console.WriteLine("All Contributors with more than 20 contributions");
+                    IEnumerable<Contributor> log = from t in contributors
+                                                   where t.Contributions > 20
+                                                   select t;
+                    foreach (Contributor Contributions in log)
+                    {
+                        Console.WriteLine(Contributions);
+                    }
+                    Console.WriteLine();
+
+                    Console.WriteLine("All Contributors with a j in their username");
+                    IEnumerable<Contributor> logs = from t in contributors
+                                                    where t.Login.Contains("j")
+                                                    select t;
+                    foreach (Contributor Login in logs)
+                    {
+                        Console.WriteLine(Login);
+                    }
                 }
             }
-
             Console.ReadLine();
         }
     }
