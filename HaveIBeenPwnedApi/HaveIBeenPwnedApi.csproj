@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1312B3E7-A89A-46A4-B196-A4A78BCC7A03}</ProjectGuid>
+    <ProjectGuid>{8FB4F6C6-C111-4079-8101-5C90D291BE64}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>OnlineExample</RootNamespace>
-    <AssemblyName>OnlineExample</AssemblyName>
+    <RootNamespace>HaveIBeenPwnedApi</RootNamespace>
+    <AssemblyName>HaveIBeenPwnedApi</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -38,8 +38,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Mobile" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,6 +52,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Parameters\Parameters.csproj">
+      <Project>{49CA637C-E2EC-439C-888D-7BCA3B53BAD4}</Project>
+      <Name>Parameters</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
