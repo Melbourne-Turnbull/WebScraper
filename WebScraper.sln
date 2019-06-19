@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaveIBeenPwnedButBetter", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaveIBeenPwnedFromScratch", "HaveIBeenPwnedFromScratch\HaveIBeenPwnedFromScratch.csproj", "{17046DBB-257B-4F3C-A693-5D9E65A54F15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HasCMoGBeenPwned", "HasCMoGBeenPwned\HasCMoGBeenPwned.csproj", "{BADC8D2D-FB72-4883-BCC4-D5115EB01852}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{17046DBB-257B-4F3C-A693-5D9E65A54F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17046DBB-257B-4F3C-A693-5D9E65A54F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17046DBB-257B-4F3C-A693-5D9E65A54F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BADC8D2D-FB72-4883-BCC4-D5115EB01852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BADC8D2D-FB72-4883-BCC4-D5115EB01852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BADC8D2D-FB72-4883-BCC4-D5115EB01852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BADC8D2D-FB72-4883-BCC4-D5115EB01852}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
