@@ -184,7 +184,7 @@ namespace HasCMoGBeenPwned
             //----------------------------------------------------------------------------------------------------------------
             public static List<AD_GPO_Users> GetUsers()
             {
-                List<AD_GPO_Users> user = db.Query<AD_GPO_Users>("SELECT TOP 20 * FROM AD_GPO_Users").ToList();
+                List<AD_GPO_Users> user = db.Query<AD_GPO_Users>("SELECT * FROM AD_GPO_Users WHERE EmailAddress <> '' AND EmployeeType IN ('Regular')").ToList();
                 return user;
             }
         }
@@ -237,7 +237,7 @@ namespace HasCMoGBeenPwned
             }
             webRequest.Method = "GET";
             webRequest.ContentType = "application/json";
-            webRequest.UserAgent = "HaveIBeenPwnedAPIExample";
+            webRequest.UserAgent = "HasCMoGBeenPwned";
 
             //gets response and reads it before sending it to get deserialized
             try
@@ -253,7 +253,7 @@ namespace HasCMoGBeenPwned
                 }
             }
             //if the URL is invalid/ there was no breaches it returns nothing
-            catch (System.Net.WebException)
+            catch (System.Net.WebException e)
             {
             }
             return result;
@@ -289,37 +289,35 @@ namespace HasCMoGBeenPwned
             var users = Data.AD_GPO_Users.GetUsers();
             foreach (var emails in users)       //runs through list from database query
             {
+                System.Threading.Thread.Sleep(1800);
                 var email = emails.EmailAddress;
-                if (email != "")        //check for email, if email is empty then skip
+                List<Pwned> AllBreaches = SendRequest(email);
+                foreach (Pwned pwn in AllBreaches)  //runs through breaches found
                 {
-                    List<Pwned> AllBreaches = SendRequest(email);
+                    Data.Breach breachObj = Data.Breach.FromPwned(pwn);
+                    Data.Breach breachedEmail = Data.Breach.CheckIfBreachExistsInDatabase(breachObj.Title);
 
-                    foreach (Pwned pwn in AllBreaches)  //runs through breaches found
+                    if (breachedEmail != null)      //check if breach exists in database or not
                     {
-                        Data.Breach breachObj = Data.Breach.FromPwned(pwn);
-                        Data.Breach breachedEmail = Data.Breach.CheckIfBreachExistsInDatabase(breachObj.Title);
-
-                        if (breachedEmail != null)      //check if breach exists in database or not
-                        {
-                            Data.Breached_Emails breachedEmailsObj = Data.Breached_Emails.FromBreach(breachedEmail, email);
-                            Data.Breached_Emails doesEmailExistInDatabase = Data.Breached_Emails.CheckIfEmailExistsInDatabase(breachedEmailsObj);
-                            if (doesEmailExistInDatabase == null)         //Check if the email and breach has already been saved, if so then skip the save
+                        Data.Breached_Emails breachedEmailsObj = Data.Breached_Emails.FromBreach(breachedEmail, email);
+                        Data.Breached_Emails doesEmailExistInDatabase = Data.Breached_Emails.CheckIfEmailExistsInDatabase(breachedEmailsObj);
+                        if (doesEmailExistInDatabase == null)         //Check if the email and breach has already been saved, if so then skip the save
                             {
                                 breachedEmailsObj.SaveBreachedEmailToDatabase();
                             }
-                        }
-                        else
+                    }
+                    else
                         {
                             breachObj.SaveBreachToDatabase();
                             Data.Breach breachedEmail2 = Data.Breach.CheckIfBreachExistsInDatabase(breachObj.Title);
                             Data.Breached_Emails breachedEmailsObj = Data.Breached_Emails.FromBreach(breachedEmail2, email);
                             breachedEmailsObj.SaveBreachedEmailToDatabase();
                         }
-                    }
                 }
             }
             Console.WriteLine("Done!");
             Console.ReadKey();
+            //comment test
         }
     }
 }
