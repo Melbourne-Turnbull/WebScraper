@@ -100,7 +100,7 @@ namespace HasCMoGBeenPwned
             //----------------------------------------------------------------------------------------------------------------
             public void SaveBreachedEmailToDatabase()
             {
-                db.Save<Breached_Emails>(this);
+                db.Insert<Breached_Emails>(this);
             }
             //----------------------------------------------------------------------------------------------------------------
             public static Breached_Emails CheckIfEmailExistsInDatabase(Breached_Emails breachedEmailsObj)
